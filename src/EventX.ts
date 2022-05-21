@@ -4,11 +4,17 @@ import { AsyncEmitOptions, EmitOptions } from "./Options";
 import { isAsyncEmitOption } from "./parseOptions";
 import { isPreventable, prevent } from "./IPreventableEventArg";
 
-export default class EventBus<Events extends Record<EventType, [unknown, unknown]>> implements IEventX<Events> {
+/**
+ * Default EventX implementation.
+ */
+export default class EventX<Events extends Record<EventType, [unknown, unknown]>> implements IEventX<Events> {
 
     private readonly handlers: Map<keyof Events, Set<any>>;
     private readonly stickyRecords: Map<keyof Events, any>;
 
+    /**
+     * Create a new EventX object
+     */
     constructor() {
         this.handlers = new Map()
         this.stickyRecords = new Map()

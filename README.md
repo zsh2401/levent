@@ -4,8 +4,8 @@ A better solution of distributing events in TS and JS.
 🌟 High performance   
 🌟 Async supported   
 🌟 Sticky event   
-🌟 Preventable
-🌟 Lightful   
+🌟 Preventable   
+🌟 Lightful (Minified + Gzipped = 1kB)   
 
 ## Getting Started
 ```
