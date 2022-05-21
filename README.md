@@ -1,9 +1,8 @@
 # 🚌 Levent
-A better solution of distributing events in TS and JS.
-
+A better solution of distributing events in TS and JS.    
 [![Test](https://github.com/zsh2401/eventx/actions/workflows/test.yml/badge.svg)](https://github.com/zsh2401/eventx/actions/workflows/test.yml)
 [![Publish](https://github.com/zsh2401/eventx/actions/workflows/publish.yml/badge.svg)](https://github.com/zsh2401/eventx/actions/workflows/publish.yml)
-
+    
 🌟 High performance   
 🌟 Async supported   
 🌟 Sticky event   
@@ -12,7 +11,7 @@ A better solution of distributing events in TS and JS.
 
 ## Getting Started
 ```
-yarn add eventx
+yarn add levent
 ```
 
 ### Quick Start
