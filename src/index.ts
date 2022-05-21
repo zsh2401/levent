@@ -1,12 +1,12 @@
-export { default as EventX } from "./EventX"
-export { default as IEventX } from "./IEventX"
+export { default as EventX } from "./Levent"
+export { default as IEventBus } from "./IEventBus"
 export { default as IPreventableEventArg, isPreventable } from "./IPreventableEventArg"
 
 export * from "./Options"
 
-import EventX from "./EventX";
+import Levent from "./Levent";
 
 /**
  * Default EventX instance
  */
-export default new EventX();
+export default new Levent();

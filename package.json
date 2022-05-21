@@ -1,5 +1,5 @@
 {
-  "name": "eventx",
+  "name": "levent",
   "version": "0.1.1",
   "main": "lib/index.js",
   "module": "esm/index.js",

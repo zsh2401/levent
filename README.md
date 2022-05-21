@@ -1,5 +1,8 @@
-# 🚌 EventX
+# 🚌 Levent
 A better solution of distributing events in TS and JS.
+
+[![Test](https://github.com/zsh2401/eventx/actions/workflows/test.yml/badge.svg)](https://github.com/zsh2401/eventx/actions/workflows/test.yml)
+[![Publish](https://github.com/zsh2401/eventx/actions/workflows/publish.yml/badge.svg)](https://github.com/zsh2401/eventx/actions/workflows/publish.yml)
 
 🌟 High performance   
 🌟 Async supported   
@@ -14,24 +17,24 @@ yarn add eventx
 
 ### Quick Start
 ```typescript
-import eventx from "eventx"
+import levent from "levent"
 
 //subscribe event
-eventx.on("test",(arg:string)=>{
+levent.on("test",(arg:string)=>{
     return arg
 })
 
 //publish event.
-const values = eventx.emit("test","I love you.")
+const values = levent.emit("test","I love you.")
 
 console.log(values) // ['I love you.']
 ```
 ### Strict event types.
 ```typescript
-import { EventBus } from "eventx"
+import { Levent } from "levent"
 
 // create your own event bus instance
-const bus : EventBus<{
+const bus : Levent<{
     "example-event":[string,number]
 }>
 
@@ -74,7 +77,7 @@ eventx.emit("example-event",null,{
 ## Join in development!🏋🏻‍♂️
 ### 1. Get the source
 ```sh
-git clone https://github.com/zsh2401/eventx && cd eventx
+git clone https://github.com/zsh2401/levent && cd levent
 ```
 ### 2. Go
 ```sh

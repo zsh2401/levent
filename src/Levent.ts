@@ -1,19 +1,19 @@
-import IEventX, { EventType } from "./IEventX";
+import IEventBus, { EventType } from "./IEventBus";
 import { EventHandler } from "./IEventHandler";
 import { AsyncEmitOptions, EmitOptions } from "./Options";
 import { isAsyncEmitOption } from "./parseOptions";
 import { isPreventable, prevent } from "./IPreventableEventArg";
 
 /**
- * Default EventX implementation.
+ * Default Levent implementation.
  */
-export default class EventX<Events extends Record<EventType, [unknown, unknown]>> implements IEventX<Events> {
+export default class Levent<Events extends Record<EventType, [unknown, unknown]>> implements IEventBus<Events> {
 
     private readonly handlers: Map<keyof Events, Set<any>>;
     private readonly stickyRecords: Map<keyof Events, any>;
 
     /**
-     * Create a new EventX object
+     * Create a new EventBus
      */
     constructor() {
         this.handlers = new Map()

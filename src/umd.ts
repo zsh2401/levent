@@ -1,6 +1,6 @@
 import * as tdscore from "./index"
 
-const NAME = "eventx"
+const NAME = "levent"
 //@ts-ignore
 const MOUNT_ROOT = typeof window === 'undefined' ? global : window;
 

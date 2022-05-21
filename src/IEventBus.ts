@@ -11,7 +11,7 @@ export type EventType = string | symbol;
  * above codes defined a event bus which contains one event named appLoaed, this
  * event requires a handler that receive a string as args and returns a number as result.
  */
-export default interface IEventX<Events extends Record<EventType, [unknown, unknown]>> {
+export default interface IEventBus<Events extends Record<EventType, [unknown, unknown]>> {
 
     emit<N extends keyof Events>(event: N, args?: Events[N][0], options?: EmitOptions): Events[N][1][]
 

@@ -1,0 +1,10 @@
+src
+tests
+jest.config.js
+.eslintrc.json
+tsconfig*.json
+webpack*.ts
+*.lock
+.vscode
+.github
+coverage
