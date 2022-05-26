@@ -1,4 +1,4 @@
-import IEventBus, { EventType } from "./IEventBus";
+import ILevent, { DefaultEventRecords, EventType, ExtractArgument, ExtractReturn } from "./ILevent";
 import { EventHandler } from "./IEventHandler";
 import { AsyncEmitOptions, EmitOptions } from "./Options";
 import { isAsyncEmitOption } from "./parseOptions";
@@ -7,7 +7,7 @@ import { isPreventable, prevent } from "./IPreventableEventArg";
 /**
  * Default Levent implementation.
  */
-export default class Levent<Events extends Record<EventType, [unknown, unknown]>> implements IEventBus<Events> {
+export default class Levent<Events extends Record<EventType, EventHandler<any, any>> = DefaultEventRecords> implements ILevent<Events> {
 
     private readonly handlers: Map<keyof Events, Set<any>>;
     private readonly stickyRecords: Map<keyof Events, any>;
@@ -20,8 +20,8 @@ export default class Levent<Events extends Record<EventType, [unknown, unknown]>
         this.stickyRecords = new Map()
     }
 
-    emit<N extends keyof Events>(event: N, args?: Events[N][0], options?: EmitOptions): Events[N][1][];
-    emit<N extends keyof Events>(event: N, args?: Events[N][0], options?: AsyncEmitOptions): Promise<Events[N][1][]>;
+    emit<N extends keyof Events>(event: N, args?: ExtractArgument<Events[N]>, options?: EmitOptions): ExtractReturn<Events[N]>[]
+    emit<N extends keyof Events>(event: N, args?: ExtractArgument<Events[N]>, options?: AsyncEmitOptions): Promise<ExtractReturn<Events[N]>[]>;
     emit(event: string | symbol, args?: any, options?: EmitOptions | AsyncEmitOptions): any {
 
         if (options?.sticky) {
@@ -38,7 +38,7 @@ export default class Levent<Events extends Record<EventType, [unknown, unknown]>
 
     }
 
-    on<N extends keyof Events>(event: N, handler: EventHandler<Events[N][0], Events[N][1]>): void {
+    on<N extends keyof Events>(event: N, handler: Events[N]): void {
         this.handlerSetOf(event).add(handler)
 
         if (this.stickyRecords.has(event)) {
@@ -47,7 +47,7 @@ export default class Levent<Events extends Record<EventType, [unknown, unknown]>
 
     }
 
-    off<N extends keyof Events>(event: N, handler: EventHandler<Events[N][0], Events[N][1]>): void {
+    off<N extends keyof Events>(event: N, handler: Events[N]): void {
         this.handlerSetOf(event).delete(handler)
     }
 
@@ -97,11 +97,11 @@ export default class Levent<Events extends Record<EventType, [unknown, unknown]>
         return true
     }
 
-    private handlerSetOf<N extends keyof Events>(eventName: N): Set<(e: Events[N][0]) => Events[N][1]> {
+    private handlerSetOf<N extends keyof Events>(eventName: N): Set<Events[N]> {
         if (this.handlers.has(eventName)) {
             return this.handlers.get(eventName)!
         } else {
-            const result = new Set<(e: Events[N][0]) => Events[N][1]>();
+            const result = new Set<Events[N]>();
             this.handlers.set(eventName, result)
             return result
         }

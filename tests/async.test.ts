@@ -1,12 +1,12 @@
-import { EventX } from "../src"
+import { Levent } from "../src"
 describe("async test", () => {
 
-    const instance = new EventX<{
-        "test": [string, string]
+    const instance = new Levent<{
+        "test": (x: string) => Promise<string>
     }>();
 
     it("awaitable", async () => {
-        
+
         instance.on("test", async (arg: string) => arg)
         instance.on("test", async (arg: string) => arg + "x")
 

@@ -1,5 +1,5 @@
-export { default as EventX } from "./Levent"
-export { default as IEventBus } from "./IEventBus"
+export { default as Levent } from "./Levent"
+export { default as ILevent } from "./ILevent"
 export { default as IPreventableEventArg, isPreventable } from "./IPreventableEventArg"
 
 export * from "./Options"

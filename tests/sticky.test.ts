@@ -1,8 +1,8 @@
-import { EventX } from "../src";
+import { Levent } from "../src";
 
 describe("sticky", () => {
     it("sticky", () => {
-        const instance = new EventX<{ "test": [string, void] }>()
+        const instance = new Levent<{ "test": (x: string) => void }>()
 
         const arg = "fine"
 
