@@ -22,7 +22,7 @@ export default class Levent<Events extends Record<EventType, EventHandler<any, a
 
     emit<N extends keyof Events>(event: N, args?: ExtractArgument<Events[N]>, options?: EmitOptions): ExtractReturn<Events[N]>[]
     emit<N extends keyof Events>(event: N, args?: ExtractArgument<Events[N]>, options?: AsyncEmitOptions): Promise<ExtractReturn<Events[N]>[]>;
-    emit(event: string | symbol, args?: any, options?: EmitOptions | AsyncEmitOptions): any {
+    emit<N extends keyof Events>(event: N, args?: any, options?: EmitOptions | AsyncEmitOptions): any {
 
         if (options?.sticky) {
             this.stickyRecords.set(event, args)
@@ -51,7 +51,7 @@ export default class Levent<Events extends Record<EventType, EventHandler<any, a
         this.handlerSetOf(event).delete(handler)
     }
 
-    private async async(event: string | symbol, arg: any, options?: AsyncEmitOptions)
+    private async async<N extends keyof Events>(event: N, arg: any, options?: AsyncEmitOptions)
         : Promise<any[]> {
         const ahook = options?.afterEachOne;
         const results = []
@@ -70,7 +70,7 @@ export default class Levent<Events extends Record<EventType, EventHandler<any, a
         return results;
     }
 
-    private sync(event: string | symbol, arg: any, options?: EmitOptions) {
+    private sync<N extends keyof Events>(event: N, arg: any, options?: EmitOptions) {
         const results = []
 
         for (const h of this.handlerSetOf(event)) {
