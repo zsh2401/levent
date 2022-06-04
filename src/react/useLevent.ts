@@ -1,13 +1,11 @@
 import { useEffect } from 'react';
 import ILevent, { DefaultEventRecords, EventType, ExtractArgument, ExtractReturn } from '../ILevent';
-import { EmitsOptions } from "vue";
-import levent, { AsyncEmitOptions } from "../"
+import levent, { AsyncEmitOptions, EmitOptions } from "../"
 import { DependencyList, useMemo } from 'react';
 import { EventHandler } from '../IEventHandler';
-import { isAsyncEmitOption } from '../parseOptions';
 
 type Trigger<E, R> =
-    ((e: E, options?: EmitsOptions) => R[]) |
+    ((e: E, options?: EmitOptions) => R[]) |
     ((e: E, options?: AsyncEmitOptions) => Promise<R[]>)
 
 export default function useLevent<EventName extends EventType,
@@ -20,8 +18,7 @@ export default function useLevent<EventName extends EventType,
     const instance: ILevent = useMemo<ILevent>(() => leventInstance ?? levent, [leventInstance]);
 
     const trigger = useMemo(() => {
-        return (e: ExtractArgument<Events[EventName]>, options?: AsyncEmitOptions | EmitsOptions) => {
-            //@ts-expect-error
+        return (e: ExtractArgument<Events[EventName]>, options?: AsyncEmitOptions | EmitOptions) => {
             return levent.emit(eventName, e, options)
         }
     }, [instance])
