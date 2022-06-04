@@ -1,6 +1,6 @@
 {
   "name": "levent",
-  "version": "0.3.6",
+  "version": "0.3.7",
   "main": "lib/index.js",
   "module": "esm/index.js",
   "typings": "lib/index.d.ts",
