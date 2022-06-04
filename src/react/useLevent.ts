@@ -8,18 +8,18 @@ type Trigger<E, R> =
     ((e: E, options?: EmitOptions) => R[]) |
     ((e: E, options?: AsyncEmitOptions) => Promise<R[]>)
 
-export default function useLevent<EventName extends EventType,
+export default function useLevent<EventName extends keyof Events,
     Events extends Record<EventType, EventHandler<any, any>> = DefaultEventRecords>
 
     (eventName: EventName, handler?: Events[EventName], deps?: DependencyList, leventInstance?: ILevent<Events>):
 
     Trigger<ExtractArgument<Events[EventName]>, ExtractReturn<Events[EventName]>> {
 
-    const instance: ILevent = useMemo<ILevent>(() => leventInstance ?? levent, [leventInstance]);
+    const instance: ILevent<Events> = useMemo<ILevent>(() => leventInstance ?? levent, [leventInstance]);
 
     const trigger = useMemo(() => {
         return (e: ExtractArgument<Events[EventName]>, options?: AsyncEmitOptions | EmitOptions) => {
-            return levent.emit(eventName, e, options)
+            return instance.emit(eventName, e, options)
         }
     }, [instance])
 
