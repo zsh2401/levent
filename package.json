@@ -1,5 +1,5 @@
 {
-  "name": "tevent",
+  "name": "levent",
   "version": "0.3.4",
   "main": "lib/index.js",
   "module": "esm/index.js",
