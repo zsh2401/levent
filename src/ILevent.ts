@@ -24,6 +24,8 @@ export default interface ILevent<Events extends Record<EventType, EventHandler<a
     emit<N extends keyof Events>(event: N, args?: ExtractArgument<Events[N]>, options?: AsyncEmitOptions): Promise<ExtractReturn<Events[N]>[]>
 
     on<N extends keyof Events>(event: N, handler: Events[N]): void
+    
+    once<N extends keyof Events>(event: N, handler: Events[N]): void
 
     off<N extends keyof Events>(event: N, handler: Events[N]): void
 

@@ -3,5 +3,5 @@ export default interface IPreventableEventArg {
     [prevent]: boolean
 }
 export function isPreventable(arg: any): arg is IPreventableEventArg {
-    return arg[prevent] !== undefined;
+    return arg && arg[prevent] !== undefined;
 }

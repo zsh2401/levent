@@ -20,6 +20,14 @@ export default class Levent<Events extends Record<EventType, EventHandler<any, a
         this.stickyRecords = new Map()
     }
 
+    once<N extends keyof Events>(event: N, handler: Events[N]): void {
+        const wrapped = (e: any): any => {
+            this.off(event, wrapped as any)
+            return handler(e)
+        }
+        this.on(event, wrapped as any)
+    }
+
     emit<N extends keyof Events>(event: N, args?: ExtractArgument<Events[N]>, options?: EmitOptions): ExtractReturn<Events[N]>[]
     emit<N extends keyof Events>(event: N, args?: ExtractArgument<Events[N]>, options?: AsyncEmitOptions): Promise<ExtractReturn<Events[N]>[]>;
     emit<N extends keyof Events>(event: N, args?: any, options?: EmitOptions | AsyncEmitOptions): any {
