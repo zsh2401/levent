@@ -1,2 +1,4 @@
-import {} from "vue"
-export default function
+import { } from "vue"
+export default function () {
+
+}
