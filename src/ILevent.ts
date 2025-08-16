@@ -1,3 +1,4 @@
+import { EmitResult } from './ILevent';
 import { EventHandler } from "./IEventHandler";
 import { EmitOptions, AsyncEmitOptions } from "./Options";
 
@@ -10,21 +11,22 @@ export type ExtractReturn<Type> = Type extends EventHandler<any, infer X> ? X : 
 export type DefaultEventRecords = {
     [P in EventType]: any
 }
+export type EmittingResult<H extends EventHandler<unknown, unknown>>
+    = ReturnType<H> extends PromiseLike<unknown> ? Promise<ExtractReturn<H>[]> : ExtractReturn<H>[];
+
 /**
- * Standard EventX bus defination.
- * 
- * @example const bus: IEventBus<{appLoaded:[string,number]}>
- * above codes defined a event bus which contains one event named appLoaed, this
- * event requires a handler that receive a string as args and returns a number as result.
- */
+* Standard EventX bus definition.
+* 
+* @example const bus: IEventBus<{appLoaded:[string,number]}>
+* above codes defined a event bus which contains one event named appLoaed, this
+* event requires a handler that receive a string as args and returns a number as result.
+*/
 export default interface ILevent<Events extends Record<EventType, EventHandler<any, any>> = DefaultEventRecords> {
 
-    emit<N extends keyof Events, E, V>(event: N, args?: ExtractArgument<Events[N]>, options?: EmitOptions): ExtractReturn<Events[N]>[]
-
-    emit<N extends keyof Events>(event: N, args?: ExtractArgument<Events[N]>, options?: AsyncEmitOptions): Promise<ExtractReturn<Events[N]>[]>
+    emit<N extends keyof Events>(event: N, args?: ExtractArgument<Events[N]>, options?: EmitOptions): EmittingResult<Events[N]>
 
     on<N extends keyof Events>(event: N, handler: Events[N]): void
-    
+
     once<N extends keyof Events>(event: N, handler: Events[N]): void
 
     off<N extends keyof Events>(event: N, handler: Events[N]): void

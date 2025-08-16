@@ -12,25 +12,31 @@ on:
 jobs:
   build:
 
-    runs-on: ubgiuntu-latest
+    runs-on: ubuntu-latest
     strategy:
       matrix:
-        node-version: [12.x, 14.x, 16.x, 18.x]
+        node-version: [18.x, 20.x, 22.x, 24.x]
         # See supported Node.js release schedule at https://nodejs.org/en/about/releases/
 
     steps:
-    - uses: actions/checkout@v2
+    - uses: actions/checkout@v4
+
+    - name: Install pnpm
+      uses: pnpm/action-setup@v4
+      with:
+        version: 9
 
     - name: Use Node.js ${{ matrix.node-version }}
-      uses: actions/setup-node@v1
+      uses: actions/setup-node@v4
       with:
         node-version: ${{ matrix.node-version }}
+        cache: 'pnpm'
         
     - name: Install Dependencies
-      run: yarn
+      run: pnpm install --frozen-lockfile
 
     - name: Build
-      run: yarn build
+      run: pnpm build
 
     - name: Test with coverage
-      run: yarn test:coverage
+      run: pnpm test:coverage

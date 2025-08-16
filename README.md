@@ -11,7 +11,9 @@ A better solution of distributing events in TS and JS.
 
 ## Getting Started
 ```
+pnpm add levent
 yarn add levent
+npm install --save levent
 ```
 
 ### Quick Start
@@ -81,11 +83,11 @@ git clone https://github.com/zsh2401/levent && cd levent
 ### 2. Go
 ```sh
 # Download dependencies
-yarn
+pnpm
 # Build it
-yarn build
+pnpm build
 # Or run unit test
-yarn test
+pnpm test
 ```
 
 All pull requests are welcomed!🧑‍💻
