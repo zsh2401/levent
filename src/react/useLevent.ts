@@ -35,5 +35,5 @@ export default function useLevent<EventName extends keyof Events,
 
     }, [leventInstance, ...(deps ?? [])])
 
-    return trigger;
+    return trigger as Trigger<ExtractArgument<Events[EventName]>, ExtractReturn<Events[EventName]>>;
 }

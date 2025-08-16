@@ -1,4 +1,3 @@
-import { EmitResult } from './ILevent';
 import { EventHandler } from "./IEventHandler";
 import { EmitOptions, AsyncEmitOptions } from "./Options";
 
